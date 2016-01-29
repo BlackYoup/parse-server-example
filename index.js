@@ -5,12 +5,13 @@ var express = require('express');
 var ParseServer = require('parse-server').ParseServer;
 var http = require('http');
 
-if (!process.env.DATABASE_URI) {
-  console.log('DATABASE_URI not specified, falling back to localhost.');
+if (!process.env.MONGODB_ADDON_URI) {
+  console.log('Environment variable MONGODB_ADDON_URI not specified, exiting...');
+  process.exit();
 }
 
 var api = new ParseServer({
-  databaseURI: process.env.DATABASE_URI || 'mongodb://localhost:27017/dev',
+  databaseURI: process.env.MONGODB_ADDON_URI,
   cloud: process.env.CLOUD_CODE_MAIN || __dirname + '/cloud/main.js',
   appId: 'myAppId',
   masterKey: 'myMasterKey'
